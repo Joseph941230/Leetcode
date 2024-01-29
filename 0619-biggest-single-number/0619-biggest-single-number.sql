@@ -5,5 +5,5 @@ FROM
 (SELECT num 
 FROM MyNumbers
 GROUP BY num
-HAVING COUNT(num) = 1 ) AS T
+HAVING COUNT(num) = 1 )  AS t
 
