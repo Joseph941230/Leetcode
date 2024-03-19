@@ -1,17 +1,12 @@
 # Write your MySQL query statement below
-WITH CTE AS(
-
-    SELECT 
-    d.name as Department, 
-    e.name as Employee,salary, 
-    RANK() OVER(
-        partition by d.name
-        ORDER BY salary DESC
-    ) as rk 
-    FROM Employee e 
-    JOIN Department d on e.departmentid = d.id
-
-)
-SELECT Department,Employee,Salary
-FROM CTE
-WHERE rk = 1
+# Write your MySQL query statement below
+SELECT d.name AS department, e.name AS employee, salary
+FROM
+    Employee AS e
+    JOIN Department AS d ON e.departmentId = d.id
+WHERE
+    (d.id, salary) IN (
+        SELECT departmentId, MAX(salary)
+        FROM Employee
+        GROUP BY 1
+    );
